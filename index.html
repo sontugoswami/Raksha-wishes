@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raksha Bandhan Wishes</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ffe6f0, #fff0f5);
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      color: #6b0036;
+    }
+
+    img.rakhi {
+      width: auto;
+      max-width: 90%;
+      border-radius: 15px;
+      margin-top: 20px;
+      border: 4px solid red;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+
+    input {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #d63384;
+      font-size: 16px;
+      width: 260px;
+    }
+
+    #shareButton {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #25D366;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      transition: transform 0.2s ease;
+    }
+
+    #shareButton img {
+      height: 26px;
+      width: 26px;
+      object-fit: contain;
+    }
+
+    #shareButton:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+      70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+
+    .from-message {
+      font-size: 20px;
+      margin: 15px 0;
+      color: #aa0066;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="mainHeading">Happy Raksha Bandhan!</h2>
+
+  <img class="rakhi" src="rakhi.gif" alt="Raksha Bandhan GIF" />
+
+  <div class="from-message" id="fromMessage"></div>
+
+  <input type="text" id="userName" placeholder="Enter your name" />
+
+  <br />
+  <button id="shareButton" onclick="shareLink()">
+    <img src="whatsapp.png" alt="WhatsApp Logo" />
+    Share on WhatsApp
+  </button>
+
+  <script>
+    function getGeneratedLink(name) {
+      const baseUrl = window.location.href.split("?")[0];
+      return `${baseUrl}?name=${encodeURIComponent(name)}`;
+    }
+
+    function shareLink() {
+      const name = document.getElementById("userName").value.trim();
+      if (name === "") {
+        alert("Please enter your name.");
+        return;
+      }
+
+      const message = `Happy Raksha Bandhan! From ${name}`;
+      const link = getGeneratedLink(name);
+      const finalUrl = `https://wa.me/?text=${encodeURIComponent(message + ' ' + link)}`;
+
+      // Clear input after sharing
+      document.getElementById("userName").value = "";
+
+      window.open(finalUrl, '_blank');
+    }
+
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get("name");
+      if (name) {
+        document.getElementById("fromMessage").innerText = `Happy Raksha Bandhan! From ${name}`;
+      }
+    }
+  </script>
+</body>
+</html>
